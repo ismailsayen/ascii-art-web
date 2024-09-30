@@ -8,7 +8,7 @@ import (
 
 func Ascii(text, banner string) string {
 	if banner != "standard" && banner != "shadow" && banner != "thinkertoy" {
-		return ""
+		return "<h3>Banner not found. Only: Standard || Shadow || thinkertoy.</h3>"
 	}
 	// Ouvre le fichier contenant les définitions des symboles.
 	file, err := os.Open("./Files/" + banner + ".txt")
@@ -19,7 +19,7 @@ func Ascii(text, banner string) string {
 
 	// Vérifie que le mot n'est pas vide
 	if len(text) == 0 {
-		return "<h1 style=\"color: red;\">try to write somthing"
+		return "<h3 style=\"color: red;\">try to write somthing"
 	}
 
 	scanner := bufio.NewScanner(file) // Initialise un scanner pour lire le fichier ligne par ligne
