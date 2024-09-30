@@ -16,17 +16,22 @@ type Data struct {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
-	case "/ascii-art":
-		t, err := template.ParseFiles("../client/index.html")
+	case "/":
+		t, err := template.ParseFiles("./templates/index.html")
 		if err != nil {
 			fmt.Println("Error: ", err)
 		}
-		if r.Method == "get" {
+	case "/ascii-art":
+		if r.Method == "post" {
 			r.ParseForm()
 		}
+		/*if r.FormValue("banner") == "" {
+			fmt.Fprint(w, "<h1 style=\"color: red;\">No Banner with this Name. Please make sure  => Shadow || Standard || thinkertoy")
+		}*/
 		l := &Data{Text: r.FormValue("text"), Banner: r.FormValue("banner")}
 		result := asciiartweb.Ascii(l.Text, l.Banner)
 		t.Execute(w, result)
+
 	default:
 		w.Write([]byte("hello World"))
 	}

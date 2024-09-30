@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/ascii-art" method="get">
+    <form action="/ascii-art" method="post">
         <label for="text">Text: </label>
         <input type="text" name="text" id=""><br>
         <label for="standard">Standard</label>
@@ -17,6 +17,6 @@
         <input type="radio" name="banner" id="" value="thinkertoy"><br>
         <button type="submit">Afficher</button>
     </form>
-    <pre>{{.}}</pre>
+    <pre>{{. }}</pre>
 </body>
 </html>

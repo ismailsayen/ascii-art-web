@@ -8,7 +8,7 @@ import (
 
 func Ascii(text, banner string) string {
 	if banner != "standard" && banner != "shadow" && banner != "thinkertoy" {
-		return "<h1 style=\"color: red;\">No Banner with this Name => Shadow || Standard || thinkertoy"
+		return ""
 	}
 	// Ouvre le fichier contenant les définitions des symboles.
 	file, err := os.Open("./Files/" + banner + ".txt")
