@@ -17,32 +17,38 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	case "/":
 		err := asciiartweb.RenderTemplate(w, "./templates/index.html", "")
 		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusInternalServerError)
 			asciiartweb.RenderTemplate(w, "./templates/500Page.html", "/")
 			return
 		}
+		w.WriteHeader(http.StatusOK)
 	case "/ascii-art":
 		if r.Method != "POST" {
 		} else if r.Method == "POST" {
 			r.ParseForm()
 			l := &Data{Text: r.FormValue("text"), Banner: r.FormValue("banner")}
 			result := asciiartweb.Ascii(l.Text, l.Banner)
-			w.WriteHeader(http.StatusOK)
 			err := asciiartweb.RenderTemplate(w, "./templates/index.html", result)
 			if err != nil {
-				w.WriteHeader(http.StatusBadRequest)
+				w.WriteHeader(http.StatusInternalServerError)
 				asciiartweb.RenderTemplate(w, "./templates/500Page.html", "/")
 				return
 			}
+			w.WriteHeader(http.StatusOK)
 		}
 	default:
+		err := asciiartweb.RenderTemplate(w, "./templates/404Page.html", "/")
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			asciiartweb.RenderTemplate(w, "./templates/500Page.html", "/")
+			return
+		}
 		w.WriteHeader(http.StatusNotFound)
-		asciiartweb.RenderTemplate(w, "./templates/404Page.html", "/")
 
 	}
 }
 
 func main() {
 	http.HandleFunc("/", Handler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
