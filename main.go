@@ -7,11 +7,6 @@ import (
 	asciiartweb "asciiartweb/Functions"
 )
 
-type Data struct {
-	Text   string
-	Banner string
-}
-
 func Handler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case "/":
@@ -26,8 +21,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "POST" {
 		} else if r.Method == "POST" {
 			r.ParseForm()
-			l := &Data{Text: r.FormValue("text"), Banner: r.FormValue("banner")}
-			result := asciiartweb.Ascii(l.Text, l.Banner)
+			result := asciiartweb.Ascii(r.FormValue("text"), r.FormValue("banner"))
 			err := asciiartweb.RenderTemplate(w, "./templates/index.html", result)
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
