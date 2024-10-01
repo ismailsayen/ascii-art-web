@@ -14,9 +14,9 @@ func PrintChar(words []string, slice [][]string) string {
 			}
 			for _, e := range w {
 				if int(e)-32 >= 0 && int(e)-32 <= len(slice)-1 {
-					str += slice[int(e)-32][i] // printer une ligne de chaque lettre du mots
-				} else { // si on rencontre un special chartere on retourne une erreur
-					return ("<h1 style=\"color:red;\">Special charactere is not allowed.</h1>")
+					str += slice[int(e)-32][i] 
+				} else { 
+					return ("<h3 style=\"color:red;\">Special charactere is not allowed.</h3>")
 				}
 			}
 			if i < 8 { // après chaque ligne retourn a la ligne

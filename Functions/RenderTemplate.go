@@ -6,19 +6,16 @@ import (
 	"text/template"
 )
 
-func RenderTemplate(w http.ResponseWriter, status int, tmpl string, data string) error {
-	w.WriteHeader(status)
+func RenderTemplate(w http.ResponseWriter, status int, tmpl string, data string) {
 	t, err := template.ParseFiles(tmpl)
 	if err != nil {
-		fmt.Println("Error parsing template:", err)
-		return err
+		http.Error(w, "We're sorry, but something went wrong on our end. Please try again later.", http.StatusInternalServerError)
+		return
 	}
-
+	w.WriteHeader(status)
 	err = t.Execute(w, data)
 	if err != nil {
 		fmt.Println("Error executing template:", err)
-		return err
+		return
 	}
-
-	return nil
 }
